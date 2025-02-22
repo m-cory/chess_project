@@ -1,0 +1,9 @@
+version: 2
+
+models:
+  - name: stg_chess_games
+    columns:
+      - name: game_uuid
+        tests:
+          - not_null
+          - unique
