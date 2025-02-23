@@ -104,7 +104,7 @@ with
                 then 'win'
                 when user_ending_reason in ('checkmated', 'resigned', 'timeout')
                 then 'lose'
-                when user_ending_reason in ('stalemate', 'agreed')
+                when user_ending_reason in ('stalemate', 'agreed', 'repetition')
                 then 'draw'
                 else 'unknown'
             end as user_result

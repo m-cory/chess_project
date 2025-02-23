@@ -2,8 +2,73 @@ version: 2
 
 models:
   - name: fact_my_games
+    description: >
+      This model transforms raw chess game data into a user-centric fact table.
+      It pivots data from the staging model so that each row reflects my perspective,
+      including the side I played, my result (win/lose/draw), ratings, and additional metrics.
     columns:
       - name: game_uuid
+        description: "A unique identifier for each chess game"
         tests:
           - not_null
           - unique
+      - name: username
+        description: "My chess.com username"
+        tests:
+          - not_null
+      - name: side
+        description: "The side I played ('white' or 'black')"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['white', 'black']
+      - name: user_ending_reason
+        description: "Reason for game ending from my perspective"
+        tests:
+          - not_null
+      - name: opponent_ending_reason
+        description: "Reason for game ending from my opponent's perspective"
+        tests:
+          - not_null
+      - name: user_rating
+        description: "My rating at the time of the game"
+        tests:
+          - not_null
+      - name: opponent_rating
+        description: "The opponent's rating"
+        tests:
+          - not_null
+      - name: rating_diff
+        description: "Difference between my rating and the opponent's rating"
+        tests:
+          - not_null
+      - name: user_accuracy
+        description: "My accuracy score"
+      - name: opponent_accurancy
+        description: "My opponent's accuracy score"
+      - name: time_control
+        description: "The time control of the game"
+        tests:
+          - not_null
+      - name: time_class
+        description: "The time class of the game (bullet, blitz, rapid, etc.)"
+        tests:
+          - not_null
+      - name: rated
+        description: "Boolean for whether it was a rated game"
+        tests:
+          - not_null
+      - name: end_time
+        description: "Timestamp when the game ended"
+        tests:
+          - not_null
+      - name: ingestion_timestamp
+        description: "Timestamp when the row was ingested"
+        tests:
+          - not_null
+      - name: user_result
+        description: "The result from my perspective: win, lose, or draw"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['win', 'lose', 'draw', 'unknown']
