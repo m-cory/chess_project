@@ -7,12 +7,12 @@ with
             game_uuid,
             white_username,
             white_rating,
-            white_ending_reason,
+            white_result,
             white_accuracy,
 
             black_username,
             black_rating,
-            black_ending_reason,
+            black_result,
             black_accuracy,
 
             time_control,
@@ -53,15 +53,15 @@ with
 
             case
                 when white_username = username
-                then white_ending_reason
+                then white_result
                 when black_username = username
-                then black_ending_reason
+                then black_result
             end as user_ending_reason,
             case
                 when white_username = username
-                then black_ending_reason
+                then black_result
                 when black_username = username
-                then white_ending_reason
+                then white_result
             end as opponent_ending_reason,
 
             case
