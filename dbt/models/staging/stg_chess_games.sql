@@ -5,6 +5,7 @@
 with
     raw as (
         select
+            username,
             json_extract_scalar(raw_json, '$.uuid') as game_uuid,
             json_extract_scalar(raw_json, '$.url') as url,
             json_extract_scalar(raw_json, '$.pgn') as pgn,
@@ -43,6 +44,7 @@ with
         from `mcory-chess-project.chess_raw.raw_chess_games`
     )
 select
+    username,
     game_uuid,
     url,
     pgn,

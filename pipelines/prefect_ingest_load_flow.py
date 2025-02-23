@@ -11,8 +11,8 @@ def task_fetch_monthly_games(username: str, year: int, month: int) -> dict:
 
 
 @task(name="Save Data to File")
-def task_save_data_to_file(data: dict, output: str):
-    save_data_to_file(data, output)
+def task_save_data_to_file(data: dict, output: str, username: str):
+    save_data_to_file(data, output, username)
 
 
 @task(name="Load Data to BigQuery", retries=2, retry_delay_seconds=15)
@@ -26,7 +26,7 @@ def ingest_and_load_flow(
 ):
     data = task_fetch_monthly_games(username, year, month)
     if data:
-        task_save_data_to_file(data, output)
+        task_save_data_to_file(data, output, username)
         task_load_data_to_bq(output, table_id)
     else:
         print("No data retrieved.")

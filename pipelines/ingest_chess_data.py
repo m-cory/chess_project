@@ -21,13 +21,17 @@ def fetch_monthly_games(username: str, year: int, month: int) -> dict:
         return None
 
 
-def save_data_to_file(data: dict, filename: str):
+def save_data_to_file(data: dict, filename: str, username: str):
     games = data.get("games", [])
     now = datetime.datetime.utcnow().isoformat()  # UTC ingestion timestamp
     count = 0
     with open(filename, "w") as f:
         for game in games:
-            record = {"raw_json": json.dumps(game), "ingestion_timestamp": now}
+            record = {
+                "raw_json": json.dumps(game),
+                "username": username,
+                "ingestion_timestamp": now,
+            }
             f.write(json.dumps(record) + "\n")
             count += 1
     print(f"Saved {count} game records to {filename}")
