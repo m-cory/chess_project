@@ -95,7 +95,7 @@ with
             eco_url
         from base
         where
-            (white_username = my_username or black_username = my_username)
+            (white_username = username or black_username = username)
             and rules = 'chess'
     ),
 
