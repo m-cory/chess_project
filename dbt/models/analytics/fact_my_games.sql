@@ -9,12 +9,10 @@ with
             white_rating,
             white_result,
             white_accuracy,
-
             black_username,
             black_rating,
             black_result,
             black_accuracy,
-
             time_control,
             time_class,
             rated,
@@ -29,7 +27,6 @@ with
         select
             game_uuid,
             username,
-
             case
                 when white_username = username
                 then 'white'
@@ -37,7 +34,6 @@ with
                 then 'black'
                 else null
             end as side,
-
             case
                 when white_username = username
                 then white_rating
@@ -50,7 +46,6 @@ with
                 when black_username = username
                 then white_rating
             end as opponent_rating,
-
             case
                 when white_username = username
                 then white_result
@@ -63,7 +58,6 @@ with
                 when black_username = username
                 then white_result
             end as opponent_ending_reason,
-
             case
                 when white_username = username
                 then white_accuracy
@@ -76,17 +70,6 @@ with
                 when black_username = username
                 then white_accuracy
             end as opponent_accuracy,
-
-            case
-                when user_ending_reason = 'win'
-                then 'win'
-                when user_ending_reason in ('checkmated', 'resigned', 'timeout')
-                then 'lose'
-                when user_ending_reason in ('stalemate', 'agreed')
-                then 'draw'
-                else 'unknown'
-            end as user_result,
-
             time_control,
             time_class,
             rated,
@@ -95,8 +78,7 @@ with
             eco_url
         from base
         where
-            (white_username = username or black_username = username)
-            and rules = 'chess'
+            (white_username = username or black_username = username) and rules = 'chess'
     ),
 
     final as (
@@ -104,23 +86,28 @@ with
             game_uuid,
             username,
             side,
-            user_result,
             user_ending_reason,
             opponent_ending_reason,
-
             user_rating,
             opponent_rating,
             (user_rating - opponent_rating) as rating_diff,
-
             user_accuracy,
             opponent_accuracy,
-
             time_control,
             time_class,
             rated,
             end_time,
             ingestion_timestamp,
-            eco_url
+            eco_url,
+            case
+                when user_ending_reason = 'win'
+                then 'win'
+                when user_ending_reason in ('checkmated', 'resigned', 'timeout')
+                then 'lose'
+                when user_ending_reason in ('stalemate', 'agreed')
+                then 'draw'
+                else 'unknown'
+            end as user_result
         from perspective
     )
 
