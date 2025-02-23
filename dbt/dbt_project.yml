@@ -20,3 +20,5 @@ models:
   chess_analytics:
     staging:
       +materialized: table
+    analytics:
+      +materialized: table
