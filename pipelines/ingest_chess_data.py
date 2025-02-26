@@ -64,7 +64,7 @@ def main():
 
     data = fetch_monthly_games(args.username, args.year, args.month)
     if data:
-        save_data_to_file(data, args.output)
+        save_data_to_file(data, args.output, args.username)
     else:
         print("No data retrieved.")
 
