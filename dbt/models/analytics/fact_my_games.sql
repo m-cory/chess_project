@@ -5,6 +5,7 @@ with
         select
             username,
             game_uuid,
+            pgn,
             white_username,
             white_rating,
             white_result,
@@ -27,6 +28,7 @@ with
         select
             game_uuid,
             username,
+            pgn,
             case
                 when white_username = username
                 then 'white'
@@ -85,6 +87,7 @@ with
         select
             game_uuid,
             username,
+            pgn,
             side,
             user_ending_reason,
             opponent_ending_reason,
