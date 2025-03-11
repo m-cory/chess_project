@@ -11,7 +11,7 @@ CHESS_USERNAME = os.getenv("CHESS_USERNAME", "mcory")
 
 PROJECT_ID = os.getenv("PROJECT_ID", "mcory-chess-project")
 RAW_DATASET = os.getenv("RAW_DATASET", "chess_raw")
-RAW_TABLE = os.getenv("RAW_TABLE", "raw_my_games")
+RAW_TABLE = os.getenv("RAW_TABLE", "raw_chess_games")
 FACT_DATASET = os.getenv("FACT_DATASET", "chess_analytics")
 FACT_TABLE = os.getenv("FACT_TABLE", "fact_my_games")
 ANALYSIS_DATASET = os.getenv("ANALYSIS_DATASET", "chess_analytics")
