@@ -1,16 +1,23 @@
-# Chess Analytics dbt Project
+# Chess Analytics Project
 
-This project transforms raw Chess.com game data into an analytics-ready fact table from my perspective.
+This project ingests Chess.com game data into BigQuery, uses dbt to transform it, and performs additional engine-based analysis.
 
-## Project Structure
+## Folder Overview
 
-- **dbt/**: Contains all dbt project files.
-  - **models/staging/**: Raw transformations from the raw data table.
-  - **models/analytics/**: Refined fact tables for analysis.
-- **pipelines/**: Python scripts for ingestion and loading.
-- **notebooks/**: Jupyter notebooks for exploratory analysis.
+- **dbt/**: dbt models for transforming raw data into a fact table.
+- **engine_analysis/**: Python modules for analyzing PGNs with Stockfish.
+- **flows/**:
+  - **ingest_load_flow.py**: Prefect flow that ingests data from Chess.com and loads to BigQuery.
+  - **pgn_analysis_flow.py**: Prefect flow that fetches games from BigQuery and runs engine analysis.
+- **pipelines/**:
+  - **ingest_chess_data.py**: Functions to fetch monthly games and save locally.
+  - **load_data_to_bq.py**: Function to load local JSON into BigQuery.
+- **config.py**: Loads environment variables from `.env`.
+- **.env**: Stores default parameters (username, year/month, table IDs, engine config).
+- **requirements.txt**: Python dependencies (Prefect, python-chess, etc.).
 
-## Testing & Documentation
+## Usage
 
-- Run tests with: `dbt test --models fact_my_games`
-- Generate documentation with: `dbt docs generate` then `dbt docs serve`
+1. **Install dependencies**:
+   ```bash
+   pip install -r requirements.txt
